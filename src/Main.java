@@ -1,9 +1,8 @@
 import java.io.IOException;
-import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        List<String> nomes = FileUtil.readNames("C:\\Users\\Lucas Baumer\\Documents\\Lucas\\FACULDADE\\5periodo\\ProblemasEstr\\PBL03-Tabela-Hash\\src\\female_names.txt");
+        java.util.List<String> nomes = FileUtil.readNames("C:\\Users\\Lucas Baumer\\Documents\\Lucas\\FACULDADE\\5periodo\\ProblemasEstr\\PBL03-Tabela-Hash\\src\\female_names.txt");
 
         HashTable hash01 = new HashTable01();
         HashTable hash02 = new HashTable02();
@@ -34,10 +33,12 @@ public class Main {
         System.out.println("Colisões: " + hash.getColisoes());
         System.out.println("Tempo de inserção (ms): " + insertTime / 1_000_000);
         System.out.println("Tempo de busca (ms): " + searchTime / 1_000_000);
+        ListaEncadeada[] table = hash.getTabela();
+        System.out.println("Tamanho da tabela hash: " + table.length);
         System.out.println("Distribuição das chaves:");
-        List<String>[] table = hash.getTabela();
         for (int i = 0; i < table.length; i++) {
-            System.out.println("Posição " + i + ": " + table[i].size() + " itens");
+            int qtd = (table[i] != null) ? table[i].quantidade() : 0;
+            System.out.println("Posição " + i + ": " + qtd + " itens");
         }
     }
 }

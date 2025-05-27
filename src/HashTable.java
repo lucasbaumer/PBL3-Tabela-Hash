@@ -1,16 +1,12 @@
-import java.security.Key;
-import java.util.ArrayList;
-import java.util.List;
-
 public abstract class HashTable {
     protected int tamanho = 32;
-    protected List<String>[] tabela;
+    protected ListaEncadeada[] tabela;
     protected int colisoes = 0;
 
     public HashTable() {
-        tabela = new List[tamanho];
+        tabela = new ListaEncadeada[tamanho];
         for(int i = 0; i < tamanho; i++ ) {
-            tabela[i] = new ArrayList<>();
+            tabela[i] = new ListaEncadeada();
         }
     }
 
@@ -18,20 +14,20 @@ public abstract class HashTable {
 
     public void inserir(String chave) {
         int index = hash(chave);
-        if(!tabela[index].isEmpty()) colisoes++;
-        tabela[index].add(chave);
+        if(!tabela[index].estaVazia()) colisoes++;
+        tabela[index].adicionar(chave);
     }
 
     public boolean procurar(String chave) {
         int index = hash(chave);
-        return tabela[index].contains(chave);
+        return tabela[index].contem(chave);
     }
 
     public int getColisoes() {
         return colisoes;
     }
 
-    public List<String>[] getTabela() {
+    public ListaEncadeada[] getTabela() {
         return tabela;
     }
 }
