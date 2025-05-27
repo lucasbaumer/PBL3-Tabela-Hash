@@ -1,11 +1,12 @@
 public class HashTable02 extends HashTable {
     @Override
     protected int hash(String chave) {
-        int hash = 0;
+        int hash = 1;
         for (int i = 0; i < chave.length(); i++) {
-            hash += chave.charAt(i) * (i + 1);
+            hash = (chave.charAt(i) + 1) * hash;
+            hash = hash % tamanho;
         }
-        return hash % tamanho;
+        return Math.abs(hash) % tamanho;
     }
 }
 
