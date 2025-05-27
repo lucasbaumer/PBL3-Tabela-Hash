@@ -1,9 +1,9 @@
 public class ListaEncadeada {
-    private static class Node {
-        String chave;
-        Node proximo;
+    public static class Node {
+        public String chave;
+        public Node proximo;
 
-        Node(String chave) {
+        public Node(String chave) {
             this.chave = chave;
             this.proximo = null;
         }
@@ -47,5 +47,23 @@ public class ListaEncadeada {
             atual = atual.proximo;
         }
         return count;
+    }
+
+    public boolean remover(String chave) {
+        Node atual = cabeca;
+        Node anterior = null;
+        while (atual != null) {
+            if (atual.chave.equals(chave)) {
+                if (anterior == null) {
+                    cabeca = atual.proximo;
+                } else {
+                    anterior.proximo = atual.proximo;
+                }
+                return true;
+            }
+            anterior = atual;
+            atual = atual.proximo;
+        }
+        return false;
     }
 }
