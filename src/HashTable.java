@@ -1,33 +1,49 @@
 public abstract class HashTable {
     protected int tamanho = 32;
-    protected ListaEncadeada[] tabela;
+    protected String[] tabela;
     protected int colisoes = 0;
 
     public HashTable() {
-        tabela = new ListaEncadeada[tamanho];
-        for(int i = 0; i < tamanho; i++ ) {
-            tabela[i] = new ListaEncadeada();
+        tabela = new String[tamanho];
+        for (int i = 0; i < tamanho; i++) {
+            tabela[i] = null;
         }
     }
 
     protected abstract int hash(String chave);
+    protected abstract int hash2(String chave);
 
     public void inserir(String chave) {
         int index = hash(chave);
-        if(!tabela[index].estaVazia()) colisoes++;
-        tabela[index].adicionar(chave);
+        int step = hash2(chave);
+        int tentativas = 0;
+        while (tabela[index] != null) {
+            if (tabela[index].equals(chave)) return; // já existe
+            colisoes++;
+            index = (index + step) % tamanho;
+            tentativas++;
+            if (tentativas >= tamanho) return; // tabela cheia
+        }
+        tabela[index] = chave;
     }
 
     public boolean procurar(String chave) {
         int index = hash(chave);
-        return tabela[index].contem(chave);
+        int step = hash2(chave);
+        int tentativas = 0;
+        while (tabela[index] != null && tentativas < tamanho) {
+            if (tabela[index].equals(chave)) return true;
+            index = (index + step) % tamanho;
+            tentativas++;
+        }
+        return false;
     }
 
     public int getColisoes() {
         return colisoes;
     }
 
-    public ListaEncadeada[] getTabela() {
+    public String[] getTabela() {
         return tabela;
     }
 }
