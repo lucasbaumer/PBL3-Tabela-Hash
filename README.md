@@ -1,4 +1,4 @@
-** Alunos
+**Alunos**
 
 * Murilo Mayer Van Nouhuys
 * Matheus Kormann Svidnicki
